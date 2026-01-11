@@ -56,7 +56,7 @@ jobs:
             </style>
           EOF
           cat doc_helper/github-corner.html >> index.html
-          cat doc_helper/mermai-header.html >> index.html
+          cat doc_helper/mermaid-header.html >> index.html
           cat << 'EOF' >> index.html
           </head>
           <body>
