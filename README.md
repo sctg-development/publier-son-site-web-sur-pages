@@ -47,7 +47,7 @@ Analogie : Git est comme Word (le logiciel), GitHub est comme OneDrive (le stock
 
 ### Désactivez la traduction automatique
 
-Si vous utilisez un navigateur avec la traduction automatique activée (Chrome, Edge, etc.), **désactivez-la immédiatement** pour les sites de développement comme GitHub, Stack Overflow, documentation technique, etc.
+Si vous utilisez un navigateur avec la traduction automatique activée (Chrome, Edge, etc.), **désactivez-la immédiatement** pour les sites de développement comme GitHub, Stack Overflow, documentation technique, etc. Et en général, si vous utilisez plus l'anglais au quotidien vous progresserez plus vite.
 
 ### Pourquoi c'est critique ?
 
@@ -621,132 +621,13 @@ Maintenant, modifions le README pour comprendre le cycle complet.
 
 ---
 
-## 🌐 Étape 10 : Activer GitHub Pages
+## 📁 Étape 10 : Préparer votre site pour le déploiement
 
-GitHub Pages permet de transformer votre dépôt en site web accessible publiquement.
+Avant de publier votre site, nous allons préparer tous les fichiers nécessaires.
 
-### 10.1 Activer Pages
+### 10.1 Le fichier .gitignore
 
-1. Sur GitHub, allez sur votre dépôt `mon-portfolio`
-2. Cliquez sur **Settings** (Paramètres) en haut
-3. Dans le menu de gauche, cliquez sur **Pages**
-4. Dans la section **Source** :
-   - **Branch** : Sélectionnez `main`
-   - **Folder** : Laissez `/ (root)`
-5. Cliquez sur **Save**
-
-Vous verrez un message : "Your site is ready to be published at https://VotreUsername.github.io/mon-portfolio/"
-
-**⏳ Attendez 1-2 minutes**, puis rafraîchissez la page. Le message deviendra : "Your site is live at ..."
-
-**✅ GitHub Pages est activé !**
-
-### 10.2 Vérifier
-
-Cliquez sur le lien ou allez sur `https://VotreUsername.github.io/mon-portfolio/`
-
-Vous devriez voir... **uniquement votre README pour l'instant** (GitHub Pages affiche le README.md par défaut si vous n'avez pas d'`index.html`).
-
----
-
-## ⚙️ Étape 11 : Ajouter une GitHub Action pour le déploiement
-
-Les **GitHub Actions** sont des automatisations qui s'exécutent sur GitHub. Ici, nous allons créer une action qui déploie automatiquement votre site à chaque fois que vous poussez du code.
-
-### 11.1 Qu'est-ce qu'une GitHub Action ?
-
-Une GitHub Action est un **robot automatique** qui exécute des tâches pour vous. Par exemple :
-- ✅ Tester votre code automatiquement
-- ✅ Déployer votre site web
-- ✅ Envoyer des notifications
-- ✅ Compiler votre code
-
-**Notre action** va :
-1. Détecter quand vous poussez du code sur la branche `main`
-2. Prendre tous vos fichiers
-3. Les envoyer sur GitHub Pages
-4. Votre site est mis à jour automatiquement ! 🎉
-
-### 11.2 Créer le dossier pour les workflows
-
-Dans VS Code :
-
-1. Créez un nouveau dossier `.github` à la racine de votre projet
-   - **Important** : le nom commence par un point `.`
-2. Dans ce dossier `.github`, créez un sous-dossier `workflows`
-
-Votre arborescence doit ressembler à :
-```
-mon-portfolio/
-├── .github/
-│   └── workflows/
-├── README.md
-├── index.html (votre site)
-├── style.css
-└── ...
-```
-
-### 11.3 Créer le fichier de workflow
-
-1. Dans le dossier `.github/workflows/`, créez un nouveau fichier nommé `deploy.yml`
-2. Copiez-collez ce contenu :
-
-```yaml
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment: github-pages
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: .
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-```
-
-3. Sauvegardez le fichier
-
-### 11.4 Comprendre le fichier (optionnel)
-
-- **name** : Le nom de l'action
-- **on: push: branches: - main** : L'action se déclenche quand vous poussez sur `main`
-- **jobs** : Les tâches à exécuter
-- **runs-on: ubuntu-latest** : L'action s'exécute sur un serveur Linux
-- **steps** : Les étapes de déploiement (checkout du code, configuration, upload, déploiement)
-
-**⚠️ Important sur le `path`** :
-
-Dans la section `Upload artifact`, il y a `path: .`
-
-- `path: .` signifie : "Prends TOUT à la racine du dépôt"
-- Si votre site était dans un sous-dossier `site/`, vous mettriez `path: site`
-
-**Pour ce TP, laissez `path: .` car votre site est à la racine.**
-
----
-
-## 📤 Étape 12 : Pousser votre site complet
-
-### 12.1 Le fichier .gitignore
-
-Avant de pousser tous vos fichiers, créons un fichier `.gitignore`.
+Créons d'abord un fichier `.gitignore` pour éviter d'envoyer des fichiers inutiles.
 
 #### Qu'est-ce que .gitignore ?
 
@@ -787,9 +668,19 @@ node_modules/
 
 **✅ Git ignorera maintenant ces fichiers automatiquement !**
 
-### 12.2 Vérifier les fichiers à envoyer
+### 10.2 Vérifier vos fichiers HTML/CSS
 
-Avant de tout pousser, vérifions ce qui va être envoyé :
+Assurez-vous d'avoir :
+
+1. **Un fichier `index.html`** à la racine de votre projet (c'est la page d'accueil)
+2. **Vos fichiers CSS** (par exemple `style.css` ou dans un dossier `css/`)
+3. **Vos images** (dans un dossier `images/` par exemple)
+
+**⚠️ Important** : Le fichier principal **doit** s'appeler `index.html` pour que GitHub Pages l'affiche par défaut.
+
+### 10.3 Vérifier les fichiers à envoyer
+
+Vérifions ce qui sera envoyé sur GitHub :
 
 ```bash
 git status
@@ -799,7 +690,6 @@ Vous devriez voir :
 - ✅ Vos fichiers HTML, CSS
 - ✅ Vos images
 - ✅ README.md
-- ✅ .github/workflows/deploy.yml
 - ✅ .gitignore
 
 Vous ne devriez **PAS** voir :
@@ -808,7 +698,17 @@ Vous ne devriez **PAS** voir :
 
 Si vous voyez des fichiers indésirables, ajoutez-les dans `.gitignore` !
 
-### 12.3 Ajouter tous les fichiers
+**✅ Vos fichiers sont prêts à être publiés !**
+
+---
+
+## 📤 Étape 11 : Pousser votre site sur GitHub
+
+Maintenant que vos fichiers sont prêts, envoyons-les sur GitHub !
+
+### 11.1 Ajouter tous les fichiers
+
+Dans le terminal VS Code, tapez :
 
 ```bash
 git add .
@@ -816,52 +716,235 @@ git add .
 
 Le point `.` signifie "tous les fichiers" (sauf ceux dans .gitignore).
 
-### 12.4 Committer les modifications
+### 11.2 Vérifier ce qui va être commité
+
+Pour être sûr :
 
 ```bash
-git commit -m "Ajout du site complet avec GitHub Action"
+git status
 ```
-### 12.5 Pousser sur GitHub
+
+**💡 Vérifiez une dernière fois :**
+
+Vous devriez voir tous vos fichiers en vert, prêts à être commités.
+
+### 11.3 Committer les modifications
+
+```bash
+git commit -m "Ajout du site web complet"
+```
+
+### 11.4 Pousser sur GitHub
 
 ```bash
 git push
 ```
 
-### 12.5 Vérifier le déploiement
+**✅ Votre site est maintenant sur GitHub !**
 
-1. Allez sur votre dépôt GitHub
-2. Cliquez sur l'onglet **Actions** (en haut)
-3. Vous devriez voir votre workflow "Deploy to GitHub Pages" en cours d'exécution (point orange 🟠) ou terminé (coche verte ✅)
-4. Cliquez dessus pour voir les détails
-
-**⏳ Attendez que la coche soit verte** (environ 30 secondes à 2 minutes)
-
-### 12.6 Admirer votre site en ligne !
-
-Allez sur : `https://VotreUsername.github.io/mon-portfolio/`
-
-**🎉 FÉLICITATIONS ! Votre site est en ligne !**
+Retournez sur la page de votre dépôt GitHub et rechargez : vous devriez voir tous vos fichiers.
 
 ---
 
-## 🔄 Workflow quotidien : Mettre à jour votre site
+## 🌐 Étape 12 : Activer GitHub Pages
 
-Maintenant que tout est configuré, voici comment mettre à jour votre site :
+Maintenant que votre site est sur GitHub, activons GitHub Pages pour le rendre accessible en ligne.
 
-### Étapes simples
+### 12.1 Qu'est-ce que GitHub Pages ?
+
+GitHub Pages est un service gratuit qui transforme votre dépôt en **site web public**. C'est parfait pour :
+- 📝 Sites personnels et portfolios
+- 📚 Documentation de projets
+- 🎨 Sites vitrines
+- 🎓 Projets étudiants
+
+### 12.2 Activer Pages
+
+1. Sur GitHub, allez sur votre dépôt `mon-portfolio`
+2. Cliquez sur **Settings** (Paramètres) en haut
+3. Dans le menu de gauche, cliquez sur **Pages**
+4. Dans la section **Source** :
+   - **Branch** : Sélectionnez `main`
+   - **Folder** : Laissez `/ (root)`
+5. Cliquez sur **Save**
+
+Vous verrez un message : "Your site is ready to be published at https://VotreUsername.github.io/mon-portfolio/"
+
+**⏳ Attendez 1-2 minutes**, puis rafraîchissez la page. Le message deviendra : "Your site is live at ..."
+
+**✅ GitHub Pages est activé !**
+
+### 12.3 Voir votre site en ligne
+
+Cliquez sur le lien ou allez sur `https://VotreUsername.github.io/mon-portfolio/`
+
+**🎉 Votre site est en ligne !** Vous devriez voir votre page `index.html` s'afficher.
+
+**💡 Note :** Si vous voyez une erreur 404 ou le README au lieu de votre site :
+- Vérifiez que votre fichier s'appelle bien `index.html` (pas `index.htm` ou autre)
+- Vérifiez qu'il est bien à la racine du dépôt
+- Attendez encore 1-2 minutes, GitHub peut mettre un peu de temps
+
+---
+
+## ⚙️ Étape 13 : Automatiser le déploiement avec GitHub Actions
+
+Pour l'instant, votre site est en ligne, mais si vous le modifiez et poussez les changements, la mise à jour peut prendre du temps. Automatisons ce processus !
+
+### 13.1 Qu'est-ce qu'une GitHub Action ?
+
+Les **GitHub Actions** sont des automatisations qui s'exécutent sur GitHub. Une GitHub Action est un **robot automatique** qui exécute des tâches pour vous. Par exemple :
+- ✅ Tester votre code automatiquement
+- ✅ Déployer votre site web
+- ✅ Envoyer des notifications
+- ✅ Compiler votre code
+
+**Notre action** va :
+1. Détecter quand vous poussez du code sur la branche `main`
+2. Prendre tous vos fichiers
+3. Les envoyer automatiquement sur GitHub Pages
+4. Votre site est mis à jour en 1-2 minutes ! 🎉
+
+### 13.2 Créer le dossier pour les workflows
+
+Dans VS Code :
+
+1. Créez un nouveau dossier `.github` à la racine de votre projet
+   - **Important** : le nom commence par un point `.`
+2. Dans ce dossier `.github`, créez un sous-dossier `workflows`
+
+Votre arborescence doit ressembler à :
+```
+mon-portfolio/
+├── .github/
+│   └── workflows/
+├── .gitignore
+├── README.md
+├── index.html
+├── style.css
+└── ...
+```
+
+### 13.3 Créer le fichier de workflow
+
+1. Dans le dossier `.github/workflows/`, créez un nouveau fichier nommé `deploy.yml`
+2. Copiez-collez ce contenu :
+
+```yaml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: github-pages
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+3. Sauvegardez le fichier
+
+### 13.4 Comprendre le fichier
+
+- **name** : Le nom de l'action ("Deploy to GitHub Pages")
+- **on: push: branches: - main** : L'action se déclenche quand vous poussez sur `main`
+- **jobs** : Les tâches à exécuter
+- **runs-on: ubuntu-latest** : L'action s'exécute sur un serveur Linux de GitHub
+- **steps** : Les étapes de déploiement (récupération du code, configuration, upload, déploiement)
+
+**⚠️ Important sur le `path`** :
+
+Dans la section `Upload artifact`, il y a `path: .`
+
+- `path: .` signifie : "Prends TOUT à la racine du dépôt"
+- Si votre site était dans un sous-dossier `site/`, vous mettriez `path: site`
+
+**Pour ce TP, laissez `path: .` car votre site est à la racine.**
+
+### 13.5 Pousser la GitHub Action
+
+Dans le terminal :
+
+```bash
+git add .github/
+git commit -m "Ajout de la GitHub Action pour le déploiement automatique"
+git push
+```
+
+### 13.6 Vérifier que l'Action fonctionne
+
+1. Allez sur votre dépôt GitHub
+2. Cliquez sur l'onglet **Actions** (en haut)
+3. Vous devriez voir votre workflow "Deploy to GitHub Pages" en cours d'exécution (point orange 🟠)
+4. Cliquez dessus pour voir les détails en temps réel
+
+**⏳ Attendez que la coche soit verte** (environ 30 secondes à 2 minutes)
+
+**✅ Parfait ! Votre déploiement automatique est actif !**
+
+### 13.7 Tester l'automatisation
+
+Pour vérifier que tout fonctionne :
+
+1. Modifiez votre `index.html` localement (changez un titre, ajoutez du texte, etc.)
+2. Sauvegardez
+3. Poussez les modifications :
+   ```bash
+   git add index.html
+   git commit -m "Test de déploiement automatique"
+   git push
+   ```
+4. Allez dans l'onglet **Actions** sur GitHub : une nouvelle exécution démarre automatiquement ! 🚀
+5. Attendez qu'elle se termine (coche verte ✅)
+6. Rafraîchissez votre site : vos modifications sont en ligne !
+
+**🎉 Félicitations ! Votre pipeline de déploiement automatique fonctionne !**
+
+---
+
+## 🔄 Étape 14 : Workflow quotidien pour mettre à jour votre site
+5. git push
+   ↓
+6. GitHub Action déploie automatiquement (1-2 min)
+   ↓
+7. Votre site est mis à jour ! 🎉
+```
+
+### 14.2 Étapes simples
 
 1. **Modifiez** vos fichiers localement dans VS Code
-2. **Sauvegardez** vos modifications (`Ctrl + S`)
+2. **Sauvegardez** vos modifications (`Ctrl + S` ou `⌘ + S`)
 3. Dans le terminal :
    ```bash
    git add .
    git commit -m "Description de vos modifications"
    git push
    ```
-4. **Attendez 1-2 minutes** : GitHub Actions déploie automatiquement
-5. **Rafraîchissez** votre site : les modifications sont en ligne !
+4. **Vérifiez sur GitHub** (optionnel) : Allez dans l'onglet **Actions** pour voir le déploiement en cours
+5. **Attendez 1-2 minutes** : GitHub Actions déploie automatiquement
+6. **Rafraîchissez** votre site : les modifications sont en ligne !
 
-### Bonnes pratiques pour les messages de commit
+**💡 Astuce :** Vous n'êtes pas obligé d'attendre que le déploiement se termine. Vous pouvez continuer à travailler et pousser d'autres modifications. Chaque push déclenche un nouveau déploiement.
+
+### 14.3 Bonnes pratiques pour les messages de commit
 
 Un bon message de commit explique **ce que** vous avez fait et **pourquoi**.
 
@@ -930,20 +1013,21 @@ git status --ignored
 
 Vérifiez que vous avez bien accompli toutes les étapes :
 
-- [ ] ✅ Compte GitHub créé
-- [ ] ✅ Git installé et configuré (user.name et user.email)
-- [ ] ✅ Clé SSH créée et ajoutée à GitHub
-- [ ] ✅ Connexion SSH testée et fonctionnelle
-- [ ] ✅ Dépôt `mon-portfolio` créé sur GitHub
-- [ ] ✅ Dépôt local initialisé et lié à GitHub
-- [ ] ✅ README.md créé et poussé
-- [ ] ✅ GitHub Pages activé
-- [ ] ✅ GitHub Action créée et fonctionnelle
-- [ ] ✅ Fichier .gitignore créé
-- [ ] ✅ Site complet poussé sur GitHub
-- [ ] ✅ Site accessible en ligne à `https://VotreUsername.github.io/mon-portfolio/`
+- [ ] ✅ Compte GitHub créé (Étape 1)
+- [ ] ✅ Git installé et configuré avec user.name et user.email (Étapes 2 et 2.5)
+- [ ] ✅ Clé SSH créée et ajoutée à GitHub (Étapes 3 et 4)
+- [ ] ✅ Connexion SSH testée et fonctionnelle (Étape 5)
+- [ ] ✅ Dépôt `mon-portfolio` créé sur GitHub (Étape 7)
+- [ ] ✅ Dépôt local initialisé et lié à GitHub (Étape 8)
+- [ ] ✅ README.md créé et poussé (Étape 9)
+- [ ] ✅ Fichier .gitignore créé (Étape 10)
+- [ ] ✅ Site complet poussé sur GitHub (Étape 11)
+- [ ] ✅ GitHub Pages activé (Étape 12)
+- [ ] ✅ Site accessible en ligne à `https://VotreUsername.github.io/mon-portfolio/` (Étape 12)
+- [ ] ✅ GitHub Action créée et fonctionnelle (Étape 13)
+- [ ] ✅ Déploiement automatique testé et opérationnel (Étape 13)
 
-**🎉 Si tout est coché : BRAVO, vous maîtrisez les bases de Git et GitHub Pages !**
+**🎉 Si tout est coché : BRAVO, vous maîtrisez les bases de Git, GitHub Pages et GitHub Actions !**
 
 ---
 
@@ -1118,33 +1202,33 @@ Mais contrairement au code, **l'historique Git doit toujours être explicite** !
 ### Annexe A : Aide-mémoire Git (à imprimer)
 
 ```
-┌─────────────────────────────────────────────────────┐
-│             COMMANDES GIT ESSENTIELLES              │
-├─────────────────────────────────────────────────────┤
-│ CONFIGURATION                                       │
-│ git config --global user.name "Nom"                 │
-│ git config --global user.email "email@exemple.com"  │
-│                                                     │
-│ INITIALISATION                                      │
-│ git init                    Créer un dépôt          │
-│ git clone <url>             Cloner un dépôt         │
-│                                                     │
-│ MODIFICATIONS                                       │
-│ git status                  Voir l'état             │
-│ git add <fichier>           Ajouter un fichier      │
+┌──────────────────────────────────────────────────────┐
+│             COMMANDES GIT ESSENTIELLES               │
+├──────────────────────────────────────────────────────┤
+│ CONFIGURATION                                        │
+│ git config --global user.name "Nom"                  │
+│ git config --global user.email "email@exemple.com"   │
+│                                                      │
+│ INITIALISATION                                       │
+│ git init                    Créer un dépôt           │
+│ git clone <url>             Cloner un dépôt          │
+│                                                      │
+│ MODIFICATIONS                                        │
+│ git status                  Voir l'état              │
+│ git add <fichier>           Ajouter un fichier       │
 │ git add .                   Ajouter tous les fichiers│
-│ git commit -m "message"     Commiter                │
-│ git push                    Pousser sur GitHub      │
-│                                                     │
-│ INFORMATION                                         │
-│ git log                     Historique complet      │
-│ git log --oneline           Historique condensé     │
-│ git diff                    Voir les différences    │
-│                                                     │
-│ ANNULATION                                          │
-│ git checkout -- <fichier>   Annuler modifications   │
-│ git reset <fichier>         Retirer du staging      │
-└─────────────────────────────────────────────────────┘
+│ git commit -m "message"     Commiter                 │
+│ git push                    Pousser sur GitHub       │
+│                                                      │
+│ INFORMATION                                          │
+│ git log                     Historique complet       │
+│ git log --oneline           Historique condensé      │
+│ git diff                    Voir les différences     │
+│                                                      │
+│ ANNULATION                                           │
+│ git checkout -- <fichier>   Annuler modifications    │
+│ git reset <fichier>         Retirer du staging       │
+└──────────────────────────────────────────────────────┘
 ```
 
 ### Annexe B : Syntaxe Markdown
@@ -1281,6 +1365,8 @@ mon-portfolio/
 
 ---
 
+**Auteur : Votre Ronan LE MEILLAT - SCTG Development**  
+**Audience : Étudiant en BUT R&T**  
 **Version du document : 2.0**  
 **Dernière mise à jour : Janvier 2026**  
 **Licence : CC BY-SA 4.0** 
