@@ -1365,7 +1365,7 @@ mon-portfolio/
 
 ---
 
-**Auteur : Votre Ronan LE MEILLAT - SCTG Development**  
+**Auteur : Ronan LE MEILLAT - SCTG Development**  
 **Audience : Étudiant en BUT R&T**  
 **Version du document : 2.0**  
 **Dernière mise à jour : Janvier 2026**  
