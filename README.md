@@ -1318,6 +1318,6 @@ Vous devriez voir votre site web complet en ligne !
 
 ### 12.7 Bonus : Régler le lien vers votre site dans la page GitHub
 1. Cliquez sur l'engrenage à proximité de "About" dans votre dépôt GitHub
-2. Cliquez sur la checkbox "Set up automatically your GitHub Pages"
+2. Cliquez sur la checkbox "Use your GitHub Pages website"
 
 -- (c) Ronan Le Meillat - SCTG Development - 2025
