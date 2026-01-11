@@ -1201,7 +1201,7 @@ Mais contrairement au code, **l'historique Git doit toujours être explicite** !
 
 ### Annexe A : Aide-mémoire Git (à imprimer)
 
-```
+```text
 ┌──────────────────────────────────────────────────────┐
 │             COMMANDES GIT ESSENTIELLES               │
 ├──────────────────────────────────────────────────────┤
