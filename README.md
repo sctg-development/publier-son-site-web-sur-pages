@@ -16,6 +16,39 @@
 
 ---
 
+## 🗺️ Vue d'ensemble du TP
+
+
+```mermaid
+mindmap
+  root((GitHub Pages))
+    Préparation
+      Compte GitHub
+      Installation Git
+      Clé SSH
+      Configuration
+    Projet Local
+      Initialisation Git
+      Fichiers du site
+      README.md
+      .gitignore
+    Dépôt GitHub
+      Création repository
+      Connexion SSH
+      Push du code
+      Gestion versions
+    Déploiement
+      GitHub Pages
+      GitHub Actions
+      Automatisation
+      Site en ligne
+    Maintenance
+      Workflow quotidien
+      Commits réguliers
+      Mises à jour
+      Collaboration
+```
+
 ## 📚 Introduction : Qu'est-ce que le contrôle de version ?
 
 ### Pourquoi le contrôle de version est essentiel
@@ -119,12 +152,11 @@ Git est l'outil en ligne de commande qui permet de gérer vos versions de code l
 1. Téléchargez Git depuis [git-scm.com](https://git-scm.com/download/win)
 2. Lancez l'installateur
 3. **Configuration importante lors de l'installation :**
-
    - ✅ **Cochez "Git Bash Here"** (permet d'ouvrir un terminal Git depuis n'importe quel dossier)
    - ✅ **Sélectionnez "Use Git from Git Bash only"** ou "Git from the command line and also from 3rd-party software"
    - ✅ **NE PAS installer Git Credential Manager** (décochez cette option)
    - ✅ **Line ending conversion : "Checkout as-is, commit Unix-style line endings"** (conversion automatique CRLF → LF)
-
+   - ✅ **Nom de la branche initiale : Sélectionnez "Override the default branch name for new repositories"** et tapez **`main`**
 4. Cliquez sur **Next** jusqu'à **Install**, puis **Finish**
 
 #### 🍎 **macOS**
@@ -153,6 +185,25 @@ Git est l'outil en ligne de commande qui permet de gérer vos versions de code l
 3. Vous devriez voir quelque chose comme : `git version 2.43.0`
 
 **✅ Si vous voyez un numéro de version, Git est correctement installé !**
+
+---
+
+### Le changement vers "main"
+
+En 2020, la communauté du développement a commencé à adopter **"main"** comme nouveau standard pour plusieurs raisons :
+
+1. **Neutralité du langage** : "main" (principale) est descriptif sans connotation historique problématique
+2. **Clarté sémantique** : Le terme "main" décrit mieux sa fonction (branche principale)
+3. **Adoption industrielle** : GitHub, GitLab, et Bitbucket ont tous adopté "main" par défaut
+4. **Alignement des pratiques** : Uniformise les conventions dans l'industrie
+
+### Impact pratique
+
+- **Anciens projets** : Peuvent toujours utiliser "master" (aucune obligation de changer)
+- **Nouveaux projets** : Recommandé d'utiliser "main"
+- **Commandes Git** : Fonctionnent de la même manière, seul le nom change
+
+**💡 Bon à savoir** : Si vous travaillez sur un ancien projet utilisant "master", toutes les commandes restent identiques, il suffit de remplacer `main` par `master` dans les commandes.
 
 ---
 
@@ -390,16 +441,22 @@ Voici les commandes que nous allons utiliser aujourd'hui :
 
 Voici le cycle de travail avec Git :
 
-```
-1. Modifier vos fichiers
-   ↓
-2. git add . (préparer les modifications)
-   ↓
-3. git commit -m "Description" (enregistrer localement)
-   ↓
-4. git push (envoyer sur GitHub)
-   ↓
-5. Vos modifications sont en ligne ! 🎉
+```mermaid
+flowchart TD
+    A[Modifier vos fichiers] --> B[git add .]
+    B --> C[git commit -m 'Description']
+    C --> D[git push]
+    D --> E[Modifications en ligne sur GitHub! 🎉]
+    E --> F{Nouvelles modifications?}
+    F -->|Oui| A
+    F -->|Non| G[Fin]
+    
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style C fill:#ffe1f5
+    style D fill:#e1ffe1
+    style E fill:#ffd700
+    style G fill:#ddd
 ```
 
 **💡 Analogie :** 
