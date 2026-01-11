@@ -27,11 +27,11 @@
   // Function to convert Mermaid code blocks
   function renderMermaid() {
     const mermaidBlocks = document.querySelectorAll(
-      "pre.language-mermaid code"
+      "pre.language-mermaid code, pre code.language-mermaid, code.language-mermaid"
     );
 
     mermaidBlocks.forEach((block, index) => {
-      const code = block.textContent;
+      const code = block.textContent.trim();
       const id = `mermaid-${index}`;
 
       // Create a div for Mermaid
@@ -41,11 +41,13 @@
       mermaidDiv.textContent = code;
       mermaidDiv.id = id;
 
-      // Replace the pre/code block with the mermaid div
-      block.parentElement.parentElement.replaceChild(
-        mermaidDiv,
-        block.parentElement
-      );
+      // Find the parent <pre> if present, otherwise replace the block element
+      const pre = block.closest("pre") || block.parentElement;
+      if (pre && pre.parentElement) {
+        pre.parentElement.replaceChild(mermaidDiv, pre);
+      } else if (block.parentElement) {
+        block.parentElement.replaceChild(mermaidDiv, block);
+      }
     });
 
     // Re-initialize Mermaid for new elements
