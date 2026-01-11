@@ -513,33 +513,33 @@ Mais contrairement au code, **l'historique Git doit toujours être explicite** !
 ### Annexe A : Aide-mémoire Git (à imprimer)
 
 ```
-┌─────────────────────────────────────────────────────┐
-│             COMMANDES GIT ESSENTIELLES              │
-├─────────────────────────────────────────────────────┤
-│ CONFIGURATION                                       │
-│ git config --global user.name "Nom"                 │
-│ git config --global user.email "email@exemple.com"  │
-│                                                     │
-│ INITIALISATION                                      │
-│ git init                    Créer un dépôt          │
-│ git clone <url>             Cloner un dépôt         │
-│                                                     │
-│ MODIFICATIONS                                       │
-│ git status                  Voir l'état             │
-│ git add <fichier>           Ajouter un fichier      │
+┌──────────────────────────────────────────────────────┐
+│             COMMANDES GIT ESSENTIELLES               │
+├──────────────────────────────────────────────────────┤
+│ CONFIGURATION                                        │
+│ git config --global user.name "Nom"                  │
+│ git config --global user.email "email@exemple.com"   │
+│                                                      │
+│ INITIALISATION                                       │
+│ git init                    Créer un dépôt           │
+│ git clone <url>             Cloner un dépôt          │
+│                                                      │
+│ MODIFICATIONS                                        │
+│ git status                  Voir l'état              │
+│ git add <fichier>           Ajouter un fichier       │
 │ git add .                   Ajouter tous les fichiers│
-│ git commit -m "message"     Commiter                │
-│ git push                    Pousser sur GitHub      │
-│                                                     │
-│ INFORMATION                                         │
-│ git log                     Historique complet      │
-│ git log --oneline           Historique condensé     │
-│ git diff                    Voir les différences    │
-│                                                     │
-│ ANNULATION                                          │
-│ git checkout -- <fichier>   Annuler modifications   │
-│ git reset <fichier>         Retirer du staging      │
-└─────────────────────────────────────────────────────┘
+│ git commit -m "message"     Commiter                 │
+│ git push                    Pousser sur GitHub       │
+│                                                      │
+│ INFORMATION                                          │
+│ git log                     Historique complet       │
+│ git log --oneline           Historique condensé      │
+│ git diff                    Voir les différences     │
+│                                                      │
+│ ANNULATION                                           │
+│ git checkout -- <fichier>   Annuler modifications    │
+│ git reset <fichier>         Retirer du staging       │
+└──────────────────────────────────────────────────────┘
 ```
 
 ### Annexe B : Syntaxe Markdown
